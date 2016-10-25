@@ -1,0 +1,31 @@
+﻿CREATE TABLE pessoa(
+cod serial primary key,
+name            varchar(80),
+rg      int
+);
+
+CREATE TABLE motorista (
+    carteira_motorista           varchar(20)
+) INHERITS (pessoa);
+
+CREATE TABLE especialista (
+    especializacao           varchar(20)
+) INHERITS (pessoa);
+
+
+CREATE TABLE professor (
+    mestrado           varchar(20)
+) INHERITS (pessoa);
+
+insert into pessoa (name,rg) values ('pessoa',1010);
+insert into motorista (name,rg,carteira_motorista)  values ('motorista',2020,'carteira2020');
+insert into especialista (name,rg,especializacao) values('especialista',3030,'DBA');
+insert into professor (name,rg,mestrado) values ('professor',4040,'Mestrado BD');
+
+-- Select com todas informações
+select pessoa.cod,pessoa.name as codpes,motorista.cod as codmot,especialista.cod as codesp,professor.cod as codprof,professor.mestrado from pessoa left join motorista
+on (pessoa.cod=motorista.cod)
+left join especialista on (pessoa.cod=especialista.cod)
+left join professor
+on (pessoa.cod=professor.cod)
+
